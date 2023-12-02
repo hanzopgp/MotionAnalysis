@@ -1,6 +1,6 @@
 # Notes https://motion-gpt.github.io/
 
-**Sentences written like this are my own deduction, question...**
+*Sentences written like this are my own deduction, question...*
 
 ## Links :
 
@@ -49,7 +49,7 @@
   - This requires strictly paired motion and text data
   - Task-specific superversions so it hardly generalize
   - Lack of comprehensive understanding of the relationship between motion and language
-  - **This look like when NLP was task-specific and now we have LLMs**
+  - *This look like when NLP was task-specific and now we have LLMs*
 - Goal is to build a motion-language model + uniform multi-task framework the can generalize on new task
 - Main idea is to :
   - Follow vision-language pre-training from BEiT-3 to treat human motion as a specific foreign (body) language
@@ -59,8 +59,8 @@
   - Learn a motion-specific vector quantized variational autoencoder (VQ-VAE) model to construct the motion vocabulary (learn a representation of motion data akin to english vocabulary)
   - Then these tokens are processed by a pre-trained language model that learns the underlying grammar and syntax of the motion language + relationship with corresponding textual descriptions
 - Training :
-  - Pre-train the language model on the raw motion dataset to learn motion language (only motion dataset) **(They predict next motion ? Autoregressiv model ?)**
-  - Fine-tune on an instruction dataset (textual description + motion dataset) for prompt tuning + learning correlation between text and motion **(Supervised learning ? Need labels ?)**
+  - Pre-train the language model on the raw motion dataset to learn motion language (only motion dataset) *(They predict next motion ? Autoregressiv model ?)*
+  - Fine-tune on an instruction dataset (textual description + motion dataset) for prompt tuning + learning correlation between text and motion *(Supervised learning ? Need labels ?)*
 
 ### Related Work
 
@@ -73,12 +73,20 @@
   - Goal : describing human motion with natural languages and learn the mapping from motion to language relying on two statistical models
   - Models : RNN / TM2T
   - Problem : constrained to bi-directional translation between text and motion
-  - **Solution
+  - *Solution : treat motion as a foreign language to avoid translation*
 - Language models and multi-model
-  - 
+  - Goal : bring images, audio, videos... to LLMs
+  - Models : BERT / T5 / FLAN
+  - *Problem : nothing for human motion*
+  - *Solution : incorporate motion as a foreign language*
 - Motion language pre-training
-  - 
-    
+  - Goal : generate motion from textual description
+  - Models : MotionCLIP
+  - Problem : limited in supporting instructions from users like InstructGPT
+ 
+### Method
+
+-
 
 
 
