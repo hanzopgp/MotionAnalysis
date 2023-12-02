@@ -48,9 +48,19 @@
     - Lack of comprehensive understanding of the relationship between motion and language
     - **This look like when NLP was task-specific and now we have LLMs**
   - Goal is to build a motion-language model + uniform multi-task framework the can generalize on new task
-  - 
+  - Main idea is to :
+    - Follow vision-language pre-training from BEiT-3 to treat human motion as a specific foreign (body) language
+    - Encode language and motion within a single vocabulary
+    - This enables textual instructions like prompts in InstructGPT
+  - To generate human-like motions :
+    - Learn a motion-specific vector quantized variational autoencoder (VQ-VAE) model to construct the motion vocabulary (learn a representation of motion data akin to english vocabulary)
+    - Then these tokens are processed by a pre-trained language model that learns the underlying grammar and syntax of the motion language + relationship with corresponding textual descriptions
+  - Training :
+    - Pre-train the language model on the raw motion dataset to learn motion language (only motion dataset) **(They predict next motion ? Autoregressiv model ?)**
+    - Fine-tune on an instruction dataset (textual description + motion dataset) for prompt tuning + learning correlation between text and motion **(Supervised learning ? Need labels ?)**
 
-
+- 
+    
 
 
 
