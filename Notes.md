@@ -86,9 +86,39 @@
  
 ### Method
 
+#### 1. Motion tokenizer
+
+- Goal is to represent motion in discrete tokens
+- Data is 3D human motion
+- Model is Vector Quantized Variational Autoencoder (VQ-VAE)
+- Encoder generates discrete motion tokens (
+  - Encoder applies 1D convolutions along the time dimension to obtain latent vectors z
+  - Then z is transformed into a collection of codebook entries through discrete quantization
+  - The learnable codebook Z consists of K latent embeddings vectors of dimension d
+  - The process of quantization replaces each row vector b with its nearest codebook entry b_k in Z
+- Decoder reconstruct the motion tokens
+  - The motion decoder project all z back to raw motion space with M frames
+- The input and output are motion tokens sequences
+- There is 3 distinct loss functions fo training :
+  - Lr is the reconstruction loss (use of L1 smooth loss + velocity regularization + exponential moving average (EMA) + codebook reset techniques)
+  - Le is the embedding loss
+  - Lc is the commitment loss
+
+#### 2. Motion-aware language model
+
+- 
+
+#### 3. Training strategy
+
 -
 
+#### 4. Motion-language pre-training stage
 
+-
+
+#### 5. Instruction tuning stage
+
+-
 
 
 
