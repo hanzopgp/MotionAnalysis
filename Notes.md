@@ -35,7 +35,7 @@
 
 ## Paper notes :
 
-### Introduction
+### A. Introduction
 
 - Emergence of multimodal stuff with GPT, Bert, T5...
 - Need a motion motion one
@@ -62,7 +62,7 @@
   - Pre-train the language model on the raw motion dataset to learn motion language (only motion dataset) *(They predict next motion ? Autoregressiv model ?)*
   - Fine-tune on an instruction dataset (textual description + motion dataset) for prompt tuning + learning correlation between text and motion *(Supervised learning ? Need labels ?)*
 
-### Related Work
+### B. Related Work
 
 - Human motion synthesis :
   - Goal : generating diverse human-like motion using text, action, incomplete motion...
@@ -84,7 +84,7 @@
   - Models : MotionCLIP
   - Problem : limited in supporting instructions from users like InstructGPT
  
-### Method
+### C. Method
 
 #### 1. Motion tokenizer
 
@@ -106,19 +106,44 @@
 
 #### 2. Motion-aware language model
 
-- 
+- Thanks to motion tokenizer we map a sequence of human motion to a sequence of motion tokens
+- This allows joint representation with similar vocabulary
+- T5 encode text as WordPiece tokens with a vocabulary of K_t word pieces and train the SentencePiece model on a mixture of language datasets
+  - WordPiece is a subword tokenization algorithm introduced by BERT (sequence of words)
+  - SentencePiece is the same for sentences (sequences of sentences or segments)
+- Combine the original text vocabulary V_t with the motion vocabulary V_m
+  - There is special elements in V_t such as <EOS> tokens, this is the same for V_m with <SOM> <EOM> to indicate the start and end of motion
+  - Now we have V which combines V_t and V_m
+  - Words in the vocabulary can represent text, motion and mixture of two
+- For this conditioned generation task, they use a transformer-based model
+  - Input is a sequence of tokens X_s, which is just a sequence of tokens coming from V
+  - Output is the same
+  - The decoder predicts the probability distribution of the potential next token at each step to produce a whole sequence of tokens
+  - This is an autoregressiv model
+- The objective is to maximizer the log-likelihood of the data distribution
+- Thanks to this, MotionGPT learns to capture the underlying patterns and relationships from the data distribution
 
 #### 3. Training strategy
 
--
+- 1. Train the motion tokenizer (learn the motion codebook to represent human motion)
+- 2. Motion-language pre-training stage (learn the relationship between motion and language)
+  - Continue to pre-train T5 models (which are only training on language at start) with mixture of language and motions
+  - Both unsupervised and supervised paradigm
+    - Unsupervised manner :     
+      - 15% of input tokens are randomly replaced with a special sentinel token *(that's a kind of data augmentation)*
+      - The target sequence is constructed by extracting the dropped-out spans of tokens
+    - Supervised manner :
+      - Learn motion-language relation by the supervision of paied text-motion datasets 
+- 3. Instruction tuning stage (learn to answer prompt-based instruction for different motion-relevant tasks)
+  - Construct a multi-task text-motion dataset by formulating it as instructions (HumanML3D, KIT datasets...)
+  - Define 15 core motion tasks (motion generation with text, motion captioning...)
+  - Fine-tune on these new tasks
 
-#### 4. Motion-language pre-training stage
+### D. Experiments
 
--
 
-#### 5. Instruction tuning stage
 
--
+### D. Discussion
 
 
 
