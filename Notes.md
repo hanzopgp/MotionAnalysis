@@ -1,6 +1,12 @@
-Notes https://motion-gpt.github.io/
+# Notes https://motion-gpt.github.io/
 
-Quick summary :
+## Links :
+
+- Paper : https://arxiv.org/pdf/2306.14795.pdf
+- Code : https://github.com/OpenMotionLab/MotionGPT
+- Demo : https://huggingface.co/spaces/OpenMotionLab/MotionGPT
+
+## Quick summary :
 
 - Different tasks :
   - Motion Complete : predict next movement from motion tokens
@@ -24,3 +30,44 @@ Quick summary :
     - Input : input motion (optional) and text. The input motion goes into a motion encoder. This part is the motion tokenizer.
     - Vocabulary : then both inputs goes into a text codebook and a motion codebook to create text and motion tokens.
     - Model : Language encoder takes these mixed tokens and produce Kencdec and Vencdec. These vectors go into the language decoders and produce output tokens (last layer linear + softmax).
+
+## Paper notes :
+
+- Introduction :
+  - Emergence of multimodal stuff with GPT, Bert, T5...
+  - Need a motion motion one
+  - Could benefit to gaming, robotics, virtual assistant, human behavior analysis
+  - Previous research :
+    - MDM is a motion diffusion model with conditional text tokens from CLIP
+    - MLD integrated motion latent space to improve motion diffusion process
+    - MotionCLIP and TM2T models the coupled relationship between motion and text description
+  - Problem is :
+    - They treat motion and language as separate modalities
+    - This requires strictly paired motion and text data
+    - Task-specific superversions so it hardly generalize
+    - Lack of comprehensive understanding of the relationship between motion and language
+    - **This look like when NLP was task-specific and now we have LLMs**
+  - Goal is to build a motion-language model + uniform multi-task framework the can generalize on new task
+  - 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
