@@ -1,2 +1,3 @@
-# MotionGPT
-Human motion as foreign language
+# MotionAnalysis
+
+Personal project aiming to learn more about LLMs.
